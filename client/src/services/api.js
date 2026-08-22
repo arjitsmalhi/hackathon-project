@@ -6,7 +6,7 @@ let cachedSessionToken = null;
 // Initialize session with the server (tamper-proof signed session)
 export async function initSession() {
   try {
-    const res = await fetch('/api/session/init', {
+    const res = await fetch('${API_BASE}/session/init', {
       credentials: 'include'
     });
     if (res.ok) {
