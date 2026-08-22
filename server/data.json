@@ -334,7 +334,7 @@
       "courseName": "Introduction to Computer Science & Algorithms",
       "creatorSessionId": "anon_student_A_1787372164163",
       "createdAt": "2026-08-22T04:16:04.186Z",
-      "lastActive": 1787377148057,
+      "lastActive": 1787378357618,
       "participants": [
         {
           "socketId": "OsWsHrfNNonAXk-zAAAC",
@@ -358,7 +358,7 @@
         "timeRemaining": 0,
         "duration": 60,
         "isRunning": true,
-        "cycleCount": 20,
+        "cycleCount": 23,
         "lastTickTime": null,
         "settings": {
           "focusMinutes": 1,
@@ -429,7 +429,7 @@
       "roomName": "CSE 101 Focus Session",
       "creatorSessionId": "anon_yna07l2xmt3va3f5",
       "createdAt": "2026-08-22T04:25:04.441Z",
-      "lastActive": 1787377147047,
+      "lastActive": 1787378356612,
       "participants": [
         {
           "socketId": "1krQnF0g2zS2UC12AAAC",
@@ -442,10 +442,10 @@
       ],
       "pomodoro": {
         "phase": "focus",
-        "timeRemaining": 886,
+        "timeRemaining": 1486,
         "duration": 1500,
         "isRunning": true,
-        "cycleCount": 2,
+        "cycleCount": 3,
         "lastTickTime": null,
         "settings": {
           "focusMinutes": 25,
@@ -628,18 +628,18 @@
       "lastActive": "2026-08-22T04:15:19.819Z"
     },
     "anon_student_A_1787372164163": {
-      "streakCount": 20,
-      "completedCycles": 20,
-      "totalMinutes": 20,
+      "streakCount": 23,
+      "completedCycles": 23,
+      "totalMinutes": 23,
       "notesContributed": 1,
-      "lastActive": "2026-08-22T05:39:08.057Z"
+      "lastActive": "2026-08-22T05:59:17.618Z"
     },
     "anon_student_B_1787372164201": {
-      "streakCount": 20,
-      "completedCycles": 20,
-      "totalMinutes": 20,
+      "streakCount": 23,
+      "completedCycles": 23,
+      "totalMinutes": 23,
       "notesContributed": 0,
-      "lastActive": "2026-08-22T05:39:08.064Z"
+      "lastActive": "2026-08-22T05:59:17.623Z"
     },
     "test_session_1787372455795": {
       "streakCount": 0,
@@ -663,11 +663,11 @@
       "lastActive": "2026-08-22T04:27:51.003Z"
     },
     "anon_yna07l2xmt3va3f5": {
-      "streakCount": 3,
-      "completedCycles": 3,
-      "totalMinutes": 75,
+      "streakCount": 4,
+      "completedCycles": 4,
+      "totalMinutes": 100,
       "notesContributed": 0,
-      "lastActive": "2026-08-22T05:23:46.209Z"
+      "lastActive": "2026-08-22T05:54:00.003Z"
     },
     "anon_58a241138c28021ae4b1f3a8df784363": {
       "streakCount": 0,
