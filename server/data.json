@@ -320,7 +320,7 @@
       "courseName": "Introduction to Computer Science & Algorithms",
       "creatorSessionId": "anon_student_A_1787372164163",
       "createdAt": "2026-08-22T04:16:04.186Z",
-      "lastActive": 1787374412305,
+      "lastActive": 1787375455204,
       "participants": [
         {
           "socketId": "OsWsHrfNNonAXk-zAAAC",
@@ -340,11 +340,11 @@
         }
       ],
       "pomodoro": {
-        "phase": "short_break",
-        "timeRemaining": 15,
+        "phase": "focus",
+        "timeRemaining": 0,
         "duration": 60,
         "isRunning": true,
-        "cycleCount": 11,
+        "cycleCount": 13,
         "lastTickTime": null,
         "settings": {
           "focusMinutes": 1,
@@ -415,7 +415,7 @@
       "roomName": "CSE 101 Focus Session",
       "creatorSessionId": "anon_yna07l2xmt3va3f5",
       "createdAt": "2026-08-22T04:25:04.441Z",
-      "lastActive": 1787374412305,
+      "lastActive": 1787375454192,
       "participants": [
         {
           "socketId": "1krQnF0g2zS2UC12AAAC",
@@ -428,7 +428,7 @@
       ],
       "pomodoro": {
         "phase": "focus",
-        "timeRemaining": 0,
+        "timeRemaining": 766,
         "duration": 1500,
         "isRunning": true,
         "cycleCount": 1,
@@ -614,18 +614,18 @@
       "lastActive": "2026-08-22T04:15:19.819Z"
     },
     "anon_student_A_1787372164163": {
-      "streakCount": 11,
-      "completedCycles": 11,
-      "totalMinutes": 11,
+      "streakCount": 13,
+      "completedCycles": 13,
+      "totalMinutes": 13,
       "notesContributed": 1,
-      "lastActive": "2026-08-22T04:52:46.894Z"
+      "lastActive": "2026-08-22T05:10:55.204Z"
     },
     "anon_student_B_1787372164201": {
-      "streakCount": 11,
-      "completedCycles": 11,
-      "totalMinutes": 11,
+      "streakCount": 13,
+      "completedCycles": 13,
+      "totalMinutes": 13,
       "notesContributed": 0,
-      "lastActive": "2026-08-22T04:52:46.899Z"
+      "lastActive": "2026-08-22T05:10:55.206Z"
     },
     "test_session_1787372455795": {
       "streakCount": 0,

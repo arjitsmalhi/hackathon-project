@@ -557,3 +557,7 @@ input:focus, textarea:focus, select:focus {
     font-size: 2.3rem;
   }
 }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

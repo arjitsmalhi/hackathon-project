@@ -1,130 +1,225 @@
 import React from 'react';
-import { BookOpen, Users, CheckCircle2, ArrowRight, Clock, ShieldCheck, Flame } from 'lucide-react';
+import { BookOpen, Users, CheckCircle2, ArrowRight, Clock, ShieldCheck, Flame, TrendingUp } from 'lucide-react';
 
 export function LandingPage({ onNavigate, stats }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '48px', padding: '20px 0' }}>
-      {/* Hero Section */}
-      <section style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
-        <div className="badge badge-code" style={{ padding: '6px 14px', fontSize: '0.8rem' }}>
-          Peer-Verified Knowledge &bull; Synced Accountability
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0', padding: '0' }}>
+
+      {/* ── HERO ── */}
+      <section style={{
+        minHeight: '72vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: '60px 0 48px',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+        {/* Subtle ambient glow behind hero text */}
+        <div style={{
+          position: 'absolute', top: '10%', left: '50%', transform: 'translateX(-50%)',
+          width: '700px', height: '400px',
+          background: 'radial-gradient(ellipse, rgba(37,99,235,0.09) 0%, transparent 70%)',
+          pointerEvents: 'none'
+        }} />
+
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          {/* Eyebrow */}
+          <p style={{
+            fontSize: '0.72rem',
+            letterSpacing: '2.5px',
+            textTransform: 'uppercase',
+            color: 'var(--text-muted)',
+            marginBottom: '22px',
+            fontWeight: 600
+          }}>
+            Same tools. Bigger possibilities.
+          </p>
+
+          {/* Main headline — NoteNest-style large, bold, left-aligned */}
+          <h1 style={{
+            fontSize: 'clamp(2.8rem, 6.5vw, 4.8rem)',
+            fontWeight: 800,
+            letterSpacing: '-2px',
+            lineHeight: 1.1,
+            maxWidth: '740px',
+            marginBottom: '22px',
+            color: '#f8fafc'
+          }}>
+            Focus today,<br />
+            impact{' '}
+            <span style={{
+              background: 'linear-gradient(135deg, #60a5fa 0%, #34d399 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }}>tomorrow.</span>
+          </h1>
+
+          {/* Sub-headline */}
+          <p style={{
+            fontSize: '1.05rem',
+            color: 'var(--text-secondary)',
+            maxWidth: '480px',
+            lineHeight: 1.65,
+            marginBottom: '36px'
+          }}>
+            Anonymous notes. Meaningful study sessions.<br />
+            A community that helps you grow.
+          </p>
+
+          {/* CTAs */}
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '60px' }}>
+            <button
+              className="btn btn-primary btn-lg"
+              onClick={() => onNavigate('courses')}
+              id="hero-browse-notes-btn"
+              style={{ borderRadius: 'var(--radius-full)' }}
+            >
+              <span>Get Started</span>
+              <ArrowRight size={17} />
+            </button>
+
+            <button
+              className="btn btn-secondary btn-lg"
+              onClick={() => onNavigate('rooms')}
+              id="hero-join-room-btn"
+              style={{ borderRadius: 'var(--radius-full)' }}
+            >
+              <Users size={17} />
+              <span>Join a Study Room</span>
+            </button>
+          </div>
+
+          {/* Stats row — NoteNest-style minimal counters */}
+          <div style={{ display: 'flex', gap: '40px', flexWrap: 'wrap' }}>
+            {[
+              { value: '10K+', label: 'Notes shared' },
+              { value: '5K+', label: 'Students' },
+              { value: '1', label: 'Goal', sub: 'Greater possibilities' }
+            ].map((stat, i) => (
+              <div key={i}>
+                <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1 }}>{stat.value}</div>
+                <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '4px' }}>{stat.label}</div>
+                {stat.sub && <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', opacity: 0.7 }}>{stat.sub}</div>}
+              </div>
+            ))}
+          </div>
         </div>
 
-        <h1 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.4rem)', fontWeight: 800, letterSpacing: '-1.5px', lineHeight: 1.15 }}>
-          Where focus sessions build a <span style={{ background: 'linear-gradient(135deg, #60a5fa, #34d399)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>verified notes library</span>
-        </h1>
-
-        <p style={{ fontSize: '1.15rem', color: 'var(--text-secondary)', maxWidth: '620px', lineHeight: 1.6 }}>
-          Studybound connects anonymous peer-verified study notes with Google-Meet-style focus rooms. Every Pomodoro cycle you complete feeds the knowledge pool for the next student.
-        </p>
-
-        {/* Two Clear Primary CTAs */}
-        <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', justifyContent: 'center', marginTop: '10px' }}>
-          <button 
-            className="btn btn-primary btn-lg"
-            onClick={() => onNavigate('courses')}
-            id="hero-browse-notes-btn"
-          >
-            <BookOpen size={19} />
-            <span>Browse Notes</span>
-            <ArrowRight size={17} />
-          </button>
-
-          <button 
-            className="btn btn-secondary btn-lg"
-            onClick={() => onNavigate('rooms')}
-            id="hero-join-room-btn"
-          >
-            <Users size={19} />
-            <span>Start or Join a Study Room</span>
-          </button>
+        {/* Right-side vertical text — decorative, NoteNest-inspired */}
+        <div style={{
+          position: 'absolute',
+          right: 0,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '6px',
+          fontSize: '0.62rem',
+          letterSpacing: '3px',
+          textTransform: 'uppercase',
+          color: 'var(--text-muted)',
+          opacity: 0.5,
+          fontWeight: 600
+        }}>
+          {['LESS', 'DISTRACTION', 'MORE', 'PROGRESS'].map((w, i) => (
+            <span key={i}>{w}</span>
+          ))}
         </div>
       </section>
 
-      {/* Two Connected Halves Grid */}
-      <section className="grid-2" style={{ marginTop: '10px' }}>
-        {/* Half 1: Notes Database */}
-        <div 
-          className="card card-clickable" 
-          onClick={() => onNavigate('courses')}
-          style={{ display: 'flex', flexDirection: 'column', gap: '16px', position: 'relative', overflow: 'hidden' }}
-        >
+      {/* Divider */}
+      <div style={{ height: '1px', background: 'var(--border-subtle)', margin: '0 0 52px' }} />
+
+      {/* ── TWO FEATURE CARDS ── */}
+      <section className="grid-2" style={{ marginBottom: '52px' }}>
+        <div className="card card-clickable" onClick={() => onNavigate('courses')} style={{ display: 'flex', flexDirection: 'column', gap: '18px', padding: '28px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ width: 44, height: 44, borderRadius: 'var(--radius-sm)', background: 'rgba(59, 130, 246, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-primary)' }}>
+            <div style={{ width: 44, height: 44, borderRadius: 'var(--radius-sm)', background: 'rgba(59,130,246,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-primary)' }}>
               <BookOpen size={22} />
             </div>
             <span className="badge badge-confirmed">Identity-Free</span>
           </div>
 
           <div>
-            <h2 style={{ fontSize: '1.4rem', marginBottom: '8px' }}>1. Open Notes Database</h2>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
-              Crowd-verified notes per course. Accuracy is decided purely by community confirmation votes, never uploader reputation or status.
+            <h2 style={{ fontSize: '1.35rem', marginBottom: '8px' }}>Open Notes Database</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.6 }}>
+              Crowd-verified notes per course. Accuracy is scored by peer votes — not by uploader reputation or status.
             </p>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingTop: '10px', borderTop: '1px solid var(--border-subtle)', fontSize: '0.88rem', color: 'var(--text-muted)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingTop: '14px', borderTop: '1px solid var(--border-subtle)', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <CheckCircle2 size={15} color="#10b981" />
-              <span>Confidence Score = Confirms &minus; Flags</span>
+              <TrendingUp size={14} color="#10b981" />
+              <span>Sorted by trust % — most verified notes first</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <ShieldCheck size={15} color="#3b82f6" />
+              <ShieldCheck size={14} color="#3b82f6" />
               <span>Zero usernames or avatars in notes UI</span>
             </div>
           </div>
         </div>
 
-        {/* Half 2: Study Rooms */}
-        <div 
-          className="card card-clickable" 
-          onClick={() => onNavigate('rooms')}
-          style={{ display: 'flex', flexDirection: 'column', gap: '16px', position: 'relative', overflow: 'hidden' }}
-        >
+        <div className="card card-clickable" onClick={() => onNavigate('rooms')} style={{ display: 'flex', flexDirection: 'column', gap: '18px', padding: '28px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ width: 44, height: 44, borderRadius: 'var(--radius-sm)', background: 'rgba(16, 185, 129, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-success)' }}>
+            <div style={{ width: 44, height: 44, borderRadius: 'var(--radius-sm)', background: 'rgba(16,185,129,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-success)' }}>
               <Users size={22} />
             </div>
             <span className="badge badge-phase-focus">Synced Pomodoro</span>
           </div>
 
           <div>
-            <h2 style={{ fontSize: '1.4rem', marginBottom: '8px' }}>2. Study Rooms</h2>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
-              Instant video focus sessions joined via 6-character room code or link. Server-synced Pomodoro timer keeps everyone in sync.
+            <h2 style={{ fontSize: '1.35rem', marginBottom: '8px' }}>Study Rooms</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.6 }}>
+              Instant focus sessions via 6-character room code. Server-synced Pomodoro keeps every participant on the same clock.
             </p>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingTop: '10px', borderTop: '1px solid var(--border-subtle)', fontSize: '0.88rem', color: 'var(--text-muted)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingTop: '14px', borderTop: '1px solid var(--border-subtle)', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Clock size={15} color="#10b981" />
+              <Clock size={14} color="#10b981" />
               <span>Server-authoritative synchronized countdown</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Flame size={15} color="#eab308" />
-              <span>Automatic post-session note contribution prompt</span>
+              <Flame size={14} color="#eab308" />
+              <span>Auto post-session note contribution prompt</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* The Connecting Moment (Signature Feature Callout) */}
-      <section style={{ 
-        background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(16, 185, 129, 0.06))', 
-        border: '1px solid rgba(59, 130, 246, 0.2)', 
-        borderRadius: 'var(--radius-lg)', 
-        padding: '30px', 
-        display: 'flex', 
-        flexDirection: 'column', 
-        gap: '14px',
-        alignItems: 'center',
-        textAlign: 'center'
+      {/* ── SIGNATURE FEATURE CALLOUT ── */}
+      <section style={{
+        background: 'linear-gradient(120deg, rgba(37,99,235,0.07) 0%, rgba(16,185,129,0.05) 100%)',
+        border: '1px solid rgba(59,130,246,0.18)',
+        borderRadius: 'var(--radius-lg)',
+        padding: '36px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '12px',
+        marginBottom: '16px'
       }}>
-        <span className="badge badge-code">Signature Bridge</span>
-        <h3 style={{ fontSize: '1.3rem' }}>How Accountability Feeds the Notes Pool</h3>
-        <p style={{ color: 'var(--text-secondary)', maxWidth: '640px', fontSize: '0.95rem' }}>
-          When your 25-minute Pomodoro focus block rings, Studybound automatically opens the course note contribution bridge. Capture a fresh takeaway or confirm notes your peers relied on.
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '2px' }}>
+          <span className="badge badge-code">Signature Bridge</span>
+          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', letterSpacing: '1.5px', textTransform: 'uppercase' }}>How it works</span>
+        </div>
+
+        <h3 style={{ fontSize: '1.4rem', maxWidth: '560px', lineHeight: 1.3 }}>
+          How accountability feeds the notes pool
+        </h3>
+        <p style={{ color: 'var(--text-secondary)', maxWidth: '620px', fontSize: '0.93rem', lineHeight: 1.65 }}>
+          When your 25-minute Pomodoro focus block ends, Studybound automatically opens the course contribution bridge. Add a fresh insight or confirm a note your peers rely on — building the community knowledge pool one session at a time.
         </p>
+
+        <div style={{ display: 'flex', gap: '10px', marginTop: '6px', flexWrap: 'wrap' }}>
+          <button className="btn btn-primary btn-sm" onClick={() => onNavigate('rooms')} style={{ borderRadius: 'var(--radius-full)' }}>
+            Start a Session <ArrowRight size={14} />
+          </button>
+          <button className="btn btn-secondary btn-sm" onClick={() => onNavigate('courses')} style={{ borderRadius: 'var(--radius-full)' }}>
+            <BookOpen size={14} />
+            Browse Notes Pool
+          </button>
+        </div>
       </section>
     </div>
   );
