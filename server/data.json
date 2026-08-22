@@ -59,6 +59,34 @@
   ],
   "notes": [
     {
+      "id": "note-k6wDHnzwmB",
+      "courseId": "course-cs101",
+      "title": "alert(1) Safe Title",
+      "content": "exploit Note content here.",
+      "tags": [
+        "Test",
+        "academic"
+      ],
+      "confirmCount": 0,
+      "flagCount": 1,
+      "confidenceScore": -1,
+      "createdAt": "2026-08-22T04:51:19.336Z"
+    },
+    {
+      "id": "note-uON2615A68",
+      "courseId": "course-cs101",
+      "title": "<script>alert(\"xss\")</script> Safe Title",
+      "content": "<b>Bold</b> <img src=x onerror=alert(1)> Note content.",
+      "tags": [
+        "Test",
+        "<script>tag</script>"
+      ],
+      "confirmCount": 0,
+      "flagCount": 1,
+      "confidenceScore": -1,
+      "createdAt": "2026-08-22T04:50:51.265Z"
+    },
+    {
       "id": "note-ZnAhDSqWuX",
       "courseId": "course-cs101",
       "title": "&lt;script&gt;alert(&quot;xss&quot;)&lt;&#x2F;script&gt; Test Safe Title",
@@ -267,6 +295,20 @@
       "voterSessionId": "anon_yna07l2xmt3va3f5",
       "type": "confirm",
       "createdAt": "2026-08-22T04:36:04.501Z"
+    },
+    {
+      "id": "vote-eEBHWY5D",
+      "noteId": "note-uON2615A68",
+      "voterSessionId": "anon_58a241138c28021ae4b1f3a8df784363",
+      "type": "flag",
+      "createdAt": "2026-08-22T04:50:51.301Z"
+    },
+    {
+      "id": "vote-0F86ivsv",
+      "noteId": "note-k6wDHnzwmB",
+      "voterSessionId": "anon_681af84180501b2a6b2bcb705ec28a95",
+      "type": "flag",
+      "createdAt": "2026-08-22T04:51:19.351Z"
     }
   ],
   "rooms": {
@@ -278,7 +320,7 @@
       "courseName": "Introduction to Computer Science & Algorithms",
       "creatorSessionId": "anon_student_A_1787372164163",
       "createdAt": "2026-08-22T04:16:04.186Z",
-      "lastActive": 1787373364335,
+      "lastActive": 1787374412305,
       "participants": [
         {
           "socketId": "OsWsHrfNNonAXk-zAAAC",
@@ -298,11 +340,11 @@
         }
       ],
       "pomodoro": {
-        "phase": "long_break",
-        "timeRemaining": 760,
-        "duration": 900,
+        "phase": "short_break",
+        "timeRemaining": 15,
+        "duration": 60,
         "isRunning": true,
-        "cycleCount": 8,
+        "cycleCount": 11,
         "lastTickTime": null,
         "settings": {
           "focusMinutes": 1,
@@ -373,7 +415,7 @@
       "roomName": "CSE 101 Focus Session",
       "creatorSessionId": "anon_yna07l2xmt3va3f5",
       "createdAt": "2026-08-22T04:25:04.441Z",
-      "lastActive": 1787373364335,
+      "lastActive": 1787374412305,
       "participants": [
         {
           "socketId": "1krQnF0g2zS2UC12AAAC",
@@ -386,10 +428,10 @@
       ],
       "pomodoro": {
         "phase": "focus",
-        "timeRemaining": 985,
+        "timeRemaining": 0,
         "duration": 1500,
         "isRunning": true,
-        "cycleCount": 0,
+        "cycleCount": 1,
         "lastTickTime": null,
         "settings": {
           "focusMinutes": 25,
@@ -434,23 +476,118 @@
       "roomName": "CS 101 Focus Session",
       "creatorSessionId": "anon_yna07l2xmt3va3f5",
       "createdAt": "2026-08-22T04:28:25.930Z",
-      "lastActive": 1787372927016,
-      "participants": [
-        {
-          "socketId": "cENZh0gfw0iAG11EAAAE",
-          "sessionId": "anon_yna07l2xmt3va3f5",
-          "displayName": "Student 1",
-          "isCameraOn": false,
-          "isMicOn": true,
-          "joinedAt": "2026-08-22T04:28:26.052Z"
-        }
-      ],
+      "lastActive": 1787373372006,
+      "participants": [],
       "pomodoro": {
         "phase": "short_break",
         "timeRemaining": 295,
         "duration": 300,
         "isRunning": false,
         "cycleCount": 1,
+        "lastTickTime": null,
+        "settings": {
+          "focusMinutes": 25,
+          "breakMinutes": 5,
+          "longBreakMinutes": 15,
+          "cyclesBeforeLongBreak": 4
+        }
+      }
+    },
+    "57GK5J": {
+      "id": "room-Yhvvt8uvcJ",
+      "code": "57GK5J",
+      "courseId": "course-cs101",
+      "courseCode": "CS 101",
+      "courseName": "Introduction to Computer Science & Algorithms",
+      "roomName": "CS 101 Focus Session",
+      "creatorSessionId": "anon_yna07l2xmt3va3f5",
+      "createdAt": "2026-08-22T04:36:35.564Z",
+      "lastActive": 1787373395647,
+      "participants": [],
+      "pomodoro": {
+        "phase": "focus",
+        "timeRemaining": 1500,
+        "duration": 1500,
+        "isRunning": false,
+        "cycleCount": 0,
+        "lastTickTime": null,
+        "settings": {
+          "focusMinutes": 25,
+          "breakMinutes": 5,
+          "longBreakMinutes": 15,
+          "cyclesBeforeLongBreak": 4
+        }
+      }
+    },
+    "38ZQRF": {
+      "id": "room-hH3mteqx2B",
+      "code": "38ZQRF",
+      "courseId": "course-cs101",
+      "courseCode": "CS 101",
+      "courseName": "Introduction to Computer Science & Algorithms",
+      "roomName": "CS 101 Focus Session",
+      "creatorSessionId": "anon_yna07l2xmt3va3f5",
+      "createdAt": "2026-08-22T04:36:50.815Z",
+      "lastActive": 1787373410894,
+      "participants": [],
+      "pomodoro": {
+        "phase": "focus",
+        "timeRemaining": 1500,
+        "duration": 1500,
+        "isRunning": false,
+        "cycleCount": 0,
+        "lastTickTime": null,
+        "settings": {
+          "focusMinutes": 25,
+          "breakMinutes": 5,
+          "longBreakMinutes": 15,
+          "cyclesBeforeLongBreak": 4
+        }
+      }
+    },
+    "R458KN": {
+      "id": "room-Y5S7E9Uoy6",
+      "code": "R458KN",
+      "courseId": "course-cs101",
+      "courseCode": "CS 101",
+      "courseName": "Introduction to Computer Science & Algorithms",
+      "roomName": "Algorithms Final Sprint",
+      "creatorSessionId": "anon_58a241138c28021ae4b1f3a8df784363",
+      "createdAt": "2026-08-22T04:50:51.308Z",
+      "lastActive": 1787374251308,
+      "participants": [],
+      "pomodoro": {
+        "phase": "focus",
+        "timeRemaining": 1500,
+        "duration": 1500,
+        "isRunning": false,
+        "cycleCount": 0,
+        "lastTickTime": null,
+        "settings": {
+          "focusMinutes": 25,
+          "breakMinutes": 5,
+          "longBreakMinutes": 15,
+          "cyclesBeforeLongBreak": 4
+        }
+      }
+    },
+    "2KK9KP": {
+      "id": "room-kxI4KiYqXe",
+      "code": "2KK9KP",
+      "courseId": "course-cs101",
+      "courseCode": "CS 101",
+      "courseName": "Introduction to Computer Science & Algorithms",
+      "roomName": "Algorithms Final Sprint",
+      "creatorSessionId": "anon_681af84180501b2a6b2bcb705ec28a95",
+      "createdAt": "2026-08-22T04:51:19.357Z",
+      "lastActive": 1787374279357,
+      "participants": [],
+      "pomodoro": {
+        "phase": "focus",
+        "timeRemaining": 1500,
+        "duration": 1500,
+        "isRunning": false,
+        "cycleCount": 0,
         "lastTickTime": null,
         "settings": {
           "focusMinutes": 25,
@@ -477,18 +614,18 @@
       "lastActive": "2026-08-22T04:15:19.819Z"
     },
     "anon_student_A_1787372164163": {
-      "streakCount": 8,
-      "completedCycles": 8,
-      "totalMinutes": 8,
+      "streakCount": 11,
+      "completedCycles": 11,
+      "totalMinutes": 11,
       "notesContributed": 1,
-      "lastActive": "2026-08-22T04:33:43.257Z"
+      "lastActive": "2026-08-22T04:52:46.894Z"
     },
     "anon_student_B_1787372164201": {
-      "streakCount": 8,
-      "completedCycles": 8,
-      "totalMinutes": 8,
+      "streakCount": 11,
+      "completedCycles": 11,
+      "totalMinutes": 11,
       "notesContributed": 0,
-      "lastActive": "2026-08-22T04:33:43.263Z"
+      "lastActive": "2026-08-22T04:52:46.899Z"
     },
     "test_session_1787372455795": {
       "streakCount": 0,
@@ -512,11 +649,25 @@
       "lastActive": "2026-08-22T04:27:51.003Z"
     },
     "anon_yna07l2xmt3va3f5": {
-      "streakCount": 1,
-      "completedCycles": 1,
-      "totalMinutes": 25,
+      "streakCount": 2,
+      "completedCycles": 2,
+      "totalMinutes": 50,
       "notesContributed": 0,
-      "lastActive": "2026-08-22T04:28:42.081Z"
+      "lastActive": "2026-08-22T04:53:32.305Z"
+    },
+    "anon_58a241138c28021ae4b1f3a8df784363": {
+      "streakCount": 0,
+      "completedCycles": 0,
+      "totalMinutes": 0,
+      "notesContributed": 1,
+      "lastActive": "2026-08-22T04:50:51.270Z"
+    },
+    "anon_681af84180501b2a6b2bcb705ec28a95": {
+      "streakCount": 0,
+      "completedCycles": 0,
+      "totalMinutes": 0,
+      "notesContributed": 1,
+      "lastActive": "2026-08-22T04:51:19.338Z"
     }
   }
 }

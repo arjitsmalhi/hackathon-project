@@ -23,8 +23,12 @@ export function App() {
   const [userVotes, setUserVotes] = useState({});
   const [postSessionData, setPostSessionData] = useState(null);
 
-  // Check URL params on initial load (e.g. ?room=KX9F2Q or ?course=course-cs101)
+  // Check URL params on initial load and initialize signed session
   useEffect(() => {
+    api.initSession().then(() => {
+      api.getUserVotes().then(votes => setUserVotes(votes || {})).catch(() => {});
+    });
+
     const params = new URLSearchParams(window.location.search);
     const roomParam = params.get('room');
     const courseParam = params.get('course');
@@ -40,9 +44,6 @@ export function App() {
         }
       }).catch(() => {});
     }
-
-    // Load initial user votes for note details
-    api.getUserVotes().then(votes => setUserVotes(votes || {})).catch(() => {});
   }, []);
 
   const handleNavigate = (view) => {

@@ -2,12 +2,15 @@ import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import { storage } from './storage.js';
 import {
   sanitizeText,
   generateRoomCode,
   containsProfanity,
+  createSignedSessionToken,
+  verifySignedSessionToken,
   uploadRateLimiter,
   voteRateLimiter,
   roomJoinRateLimiter
@@ -17,30 +20,91 @@ dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
+
+const PORT = process.env.PORT || 4000;
+const SESSION_SECRET = process.env.SESSION_SECRET || 'studybound_super_secure_session_secret_2026';
+const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
+
+// Restrict CORS to authorized client origins with credentials support
+const allowedOrigins = [
+  CLIENT_URL,
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'http://localhost:4000'
+].filter(Boolean);
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow non-browser agents, tests, or authorized origins
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Blocked by CORS policy'));
+    }
+  },
+  credentials: true
+}));
+
 const io = new Server(server, {
   cors: {
-    origin: '*',
+    origin: allowedOrigins,
+    credentials: true,
     methods: ['GET', 'POST']
   }
 });
 
-const PORT = process.env.PORT || 4000;
-
-app.use(cors());
+app.use(cookieParser(SESSION_SECRET));
 app.use(express.json());
+
+// --- Server-Managed Signed Session Middleware ---
+// Ensures every client has a tamper-proof cryptographically signed session ID.
+app.use((req, res, next) => {
+  const cookieToken = req.cookies?.studybound_session;
+  const headerToken = req.headers['x-session-token'];
+  const bodyToken = req.body?.sessionToken || req.body?.sessionId;
+  const queryToken = req.query?.sessionToken || req.query?.sessionId;
+
+  const candidateToken = cookieToken || headerToken || bodyToken || queryToken;
+  let verifiedId = verifySignedSessionToken(candidateToken, SESSION_SECRET);
+
+  let activeToken = candidateToken;
+
+  if (!verifiedId) {
+    // Generate new tamper-proof signed session token
+    activeToken = createSignedSessionToken(SESSION_SECRET);
+    verifiedId = verifySignedSessionToken(activeToken, SESSION_SECRET);
+
+    // Set secure httpOnly cookie (auto-sent with credentials: include)
+    res.cookie('studybound_session', activeToken, {
+      httpOnly: true,
+      sameSite: 'lax',
+      maxAge: 30 * 86400000 // 30 days
+    });
+  }
+
+  req.verifiedSessionId = verifiedId;
+  req.signedSessionToken = activeToken;
+  next();
+});
 
 // --- REST API Endpoints ---
 
-// Health check
+// Health & Session Handshake
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', time: new Date().toISOString() });
+});
+
+app.get('/api/session/init', (req, res) => {
+  res.json({
+    sessionId: req.verifiedSessionId,
+    sessionToken: req.signedSessionToken
+  });
 });
 
 // 1. Courses
 app.get('/api/courses', (req, res) => {
   try {
     const courses = storage.getCourses();
-    // Attach note counts to each course
     const allNotes = storage.getAllNotes();
     const result = courses.map(c => {
       const courseNotes = allNotes.filter(n => n.courseId === c.id);
@@ -110,10 +174,12 @@ app.get('/api/notes/:id', (req, res) => {
 });
 
 app.post('/api/notes', (req, res) => {
-  const { courseId, title, content, tags, sessionId } = req.body;
-  const clientKey = sessionId || req.ip;
+  const { courseId, title, content, tags } = req.body;
+  const sessionId = req.verifiedSessionId;
+  const clientIp = req.ip;
 
-  if (!uploadRateLimiter.isAllowed(clientKey)) {
+  // Multi-layer rate limit (combining verified session token + IP bucket)
+  if (!uploadRateLimiter.isAllowed(sessionId, clientIp)) {
     return res.status(429).json({ error: 'Rate limit exceeded. Please wait a minute before uploading again.' });
   }
 
@@ -128,7 +194,7 @@ app.post('/api/notes', (req, res) => {
   const course = storage.getCourseById(courseId);
   if (!course) return res.status(400).json({ error: 'Invalid course ID' });
 
-  // Sanitize all inputs to prevent Stored XSS
+  // Sanitize text safely without double-escaping
   const sanitizedTitle = sanitizeText(title);
   const sanitizedContent = sanitizeText(content);
   const sanitizedTags = Array.isArray(tags) ? tags.map(t => sanitizeText(t)).filter(Boolean) : [];
@@ -147,18 +213,20 @@ app.post('/api/notes', (req, res) => {
   res.status(201).json(note);
 });
 
-// 3. Voting (Confirm / Flag with Session Deduplication)
+// 3. Voting (Confirm / Flag with Verified Server Session Deduplication)
 app.post('/api/notes/:id/vote', (req, res) => {
-  const { sessionId, type } = req.body;
+  const { type } = req.body;
   const noteId = req.params.id;
-  const clientKey = sessionId || req.ip;
+  const sessionId = req.verifiedSessionId;
+  const clientIp = req.ip;
 
-  if (!voteRateLimiter.isAllowed(clientKey)) {
+  // Rate limit by verified session token + IP
+  if (!voteRateLimiter.isAllowed(sessionId, clientIp)) {
     return res.status(429).json({ error: 'Voting rate limit exceeded. Please wait a moment.' });
   }
 
   if (!sessionId) {
-    return res.status(400).json({ error: 'Anonymous session ID is required to vote' });
+    return res.status(400).json({ error: 'Valid session required to vote' });
   }
 
   if (type !== 'confirm' && type !== 'flag') {
@@ -174,7 +242,7 @@ app.post('/api/notes/:id/vote', (req, res) => {
 });
 
 app.get('/api/user-votes', (req, res) => {
-  const { sessionId } = req.query;
+  const sessionId = req.verifiedSessionId;
   if (!sessionId) return res.json({});
   const votes = storage.getUserVotesForSession(sessionId);
   res.json(votes);
@@ -182,10 +250,11 @@ app.get('/api/user-votes', (req, res) => {
 
 // 4. Rooms
 app.post('/api/rooms/create', (req, res) => {
-  const { courseId, customCourseCode, customCourseName, roomName, creatorSessionId, customSettings } = req.body;
-  const clientKey = creatorSessionId || req.ip;
+  const { courseId, customCourseCode, customCourseName, roomName, customSettings } = req.body;
+  const sessionId = req.verifiedSessionId;
+  const clientIp = req.ip;
 
-  if (!roomJoinRateLimiter.isAllowed(clientKey)) {
+  if (!roomJoinRateLimiter.isAllowed(sessionId, clientIp)) {
     return res.status(429).json({ error: 'Too many room requests. Please wait a moment.' });
   }
 
@@ -200,14 +269,13 @@ app.post('/api/rooms/create', (req, res) => {
       return res.status(400).json({ error: 'Course code or name contains prohibited curse or offensive words. Please choose a respectful course name.' });
     }
 
-    // Look for existing course by code or create new one
     const existing = storage.getCourses().find(c => c.code.toLowerCase() === rawCode.toLowerCase());
     if (existing) {
       course = existing;
     } else {
       course = storage.createCourse({
-        code: rawCode.slice(0, 15),
-        name: rawName.slice(0, 80),
+        code: sanitizeText(rawCode).slice(0, 15),
+        name: sanitizeText(rawName).slice(0, 80),
         department: 'General',
         description: `Community study hub for ${rawCode}.`
       });
@@ -239,7 +307,7 @@ app.post('/api/rooms/create', (req, res) => {
     courseCode: course.code,
     courseName: course.name,
     roomName: sanitizedRoomName,
-    creatorSessionId,
+    creatorSessionId: sessionId,
     customSettings
   });
 
@@ -248,9 +316,10 @@ app.post('/api/rooms/create', (req, res) => {
 
 app.get('/api/rooms/:code', (req, res) => {
   const rawCode = req.params.code;
-  const clientKey = req.query.sessionId || req.ip;
+  const sessionId = req.verifiedSessionId;
+  const clientIp = req.ip;
 
-  if (!roomJoinRateLimiter.isAllowed(clientKey)) {
+  if (!roomJoinRateLimiter.isAllowed(sessionId, clientIp)) {
     return res.status(429).json({ error: 'Too many join attempts. Please wait.' });
   }
 
@@ -263,8 +332,16 @@ app.get('/api/rooms/:code', (req, res) => {
 });
 
 // 5. Streaks
+app.get('/api/streaks', (req, res) => {
+  const sessionId = req.verifiedSessionId;
+  const streak = storage.getStreak(sessionId);
+  res.json(streak);
+});
+
 app.get('/api/streaks/:sessionId', (req, res) => {
-  const streak = storage.getStreak(req.params.sessionId);
+  const paramSession = req.params.sessionId;
+  const verified = verifySignedSessionToken(paramSession, SESSION_SECRET) || paramSession;
+  const streak = storage.getStreak(verified);
   res.json(streak);
 });
 
@@ -322,7 +399,7 @@ setInterval(() => {
         transition: `${prevPhase}->${room.pomodoro.phase}`
       });
     } else {
-      // Sync tick broadcast every second so all clients remain 100% smooth and in lockstep
+      // Sync tick broadcast every second so all clients remain in lockstep
       io.to(code).emit('pomodoro-sync', room.pomodoro);
     }
   }
@@ -334,7 +411,7 @@ io.on('connection', socket => {
   let currentRoomCode = null;
   let participantSessionId = null;
 
-  socket.on('join-room', ({ roomCode, sessionId, displayName }) => {
+  socket.on('join-room', ({ roomCode, sessionToken, sessionId: rawSessionId, displayName }) => {
     if (!roomCode) return;
     const code = roomCode.trim().toUpperCase();
     const room = storage.getRoom(code);
@@ -344,24 +421,28 @@ io.on('connection', socket => {
       return;
     }
 
+    // Verify session token
+    const token = sessionToken || rawSessionId;
+    const verifiedSessionId = verifySignedSessionToken(token, SESSION_SECRET) || rawSessionId || `anon_${socket.id.slice(0, 8)}`;
+
     currentRoomCode = code;
-    participantSessionId = sessionId;
+    participantSessionId = verifiedSessionId;
     socket.join(code);
 
     // Assign clean anonymous display name: Student 1, Student 2, etc.
     const existingCount = room.participants.length;
     const finalDisplayName = displayName || `Student ${existingCount + 1}`;
 
-    const existingIndex = room.participants.findIndex(p => p.sessionId === sessionId);
+    const existingIndex = room.participants.findIndex(p => p.sessionId === verifiedSessionId);
     if (existingIndex !== -1) {
       room.participants[existingIndex].socketId = socket.id;
     } else {
       room.participants.push({
         socketId: socket.id,
-        sessionId,
+        sessionId: verifiedSessionId,
         displayName: finalDisplayName,
-        isCameraOn: true,
-        isMicOn: true,
+        isCameraOn: false,
+        isMicOn: false,
         joinedAt: new Date().toISOString()
       });
     }
@@ -514,7 +595,6 @@ io.on('connection', socket => {
           pomodoro: room.pomodoro
         }
       });
-      // If room is empty, reset timer running state
       if (room.participants.length === 0) {
         room.pomodoro.isRunning = false;
       }

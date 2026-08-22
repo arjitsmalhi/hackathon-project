@@ -1,13 +1,40 @@
 // Client-side API service & session manager
 
-// Retrieve or initialize a persistent anonymous session ID
-export function getAnonymousSessionId() {
-  let sessionId = localStorage.getItem('studybound_session_id');
-  if (!sessionId) {
-    sessionId = 'anon_' + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
-    localStorage.setItem('studybound_session_id', sessionId);
+let cachedSessionId = null;
+let cachedSessionToken = null;
+
+// Initialize session with the server (tamper-proof signed session)
+export async function initSession() {
+  try {
+    const res = await fetch('/api/session/init', {
+      credentials: 'include'
+    });
+    if (res.ok) {
+      const data = await res.json();
+      cachedSessionId = data.sessionId;
+      cachedSessionToken = data.sessionToken;
+      localStorage.setItem('studybound_session_id', data.sessionId);
+      localStorage.setItem('studybound_session_token', data.sessionToken);
+      return data;
+    }
+  } catch (e) {
+    console.warn('Session handshake fallback', e);
   }
-  return sessionId;
+
+  // Fallback to local storage
+  cachedSessionId = localStorage.getItem('studybound_session_id') || 'anon_guest';
+  cachedSessionToken = localStorage.getItem('studybound_session_token') || '';
+  return { sessionId: cachedSessionId, sessionToken: cachedSessionToken };
+}
+
+export function getAnonymousSessionId() {
+  if (cachedSessionId) return cachedSessionId;
+  return localStorage.getItem('studybound_session_id') || 'anon_guest';
+}
+
+export function getSessionToken() {
+  if (cachedSessionToken) return cachedSessionToken;
+  return localStorage.getItem('studybound_session_token') || '';
 }
 
 const API_BASE = '/api';
@@ -20,22 +47,40 @@ async function handleResponse(res) {
   return res.json();
 }
 
+function getHeaders() {
+  const token = getSessionToken();
+  return {
+    'Content-Type': 'application/json',
+    ...(token ? { 'x-session-token': token } : {})
+  };
+}
+
 export const api = {
+  // Init
+  initSession,
+
   // Courses
   async getCourses() {
-    const res = await fetch(`${API_BASE}/courses`);
+    const res = await fetch(`${API_BASE}/courses`, {
+      credentials: 'include',
+      headers: getHeaders()
+    });
     return handleResponse(res);
   },
 
   async getCourse(courseId) {
-    const res = await fetch(`${API_BASE}/courses/${courseId}`);
+    const res = await fetch(`${API_BASE}/courses/${courseId}`, {
+      credentials: 'include',
+      headers: getHeaders()
+    });
     return handleResponse(res);
   },
 
   async createCourse(data) {
     const res = await fetch(`${API_BASE}/courses`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      headers: getHeaders(),
       body: JSON.stringify(data)
     });
     return handleResponse(res);
@@ -44,53 +89,60 @@ export const api = {
   // Notes
   async getNotes(params = {}) {
     const query = new URLSearchParams(params).toString();
-    const res = await fetch(`${API_BASE}/notes?${query}`);
+    const res = await fetch(`${API_BASE}/notes?${query}`, {
+      credentials: 'include',
+      headers: getHeaders()
+    });
     return handleResponse(res);
   },
 
   async getNote(noteId) {
-    const res = await fetch(`${API_BASE}/notes/${noteId}`);
+    const res = await fetch(`${API_BASE}/notes/${noteId}`, {
+      credentials: 'include',
+      headers: getHeaders()
+    });
     return handleResponse(res);
   },
 
   async createNote(data) {
-    const sessionId = getAnonymousSessionId();
     const res = await fetch(`${API_BASE}/notes`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...data, sessionId })
+      credentials: 'include',
+      headers: getHeaders(),
+      body: JSON.stringify(data)
     });
     return handleResponse(res);
   },
 
   async voteNote(noteId, type) {
-    const sessionId = getAnonymousSessionId();
     const res = await fetch(`${API_BASE}/notes/${noteId}/vote`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ sessionId, type })
+      credentials: 'include',
+      headers: getHeaders(),
+      body: JSON.stringify({ type })
     });
     return handleResponse(res);
   },
 
   async getUserVotes() {
-    const sessionId = getAnonymousSessionId();
-    const res = await fetch(`${API_BASE}/user-votes?sessionId=${sessionId}`);
+    const res = await fetch(`${API_BASE}/user-votes`, {
+      credentials: 'include',
+      headers: getHeaders()
+    });
     return handleResponse(res);
   },
 
   // Rooms
   async createRoom({ courseId, customCourseCode, customCourseName, customSettings = {}, roomName = '' }) {
-    const creatorSessionId = getAnonymousSessionId();
     const res = await fetch(`${API_BASE}/rooms/create`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      headers: getHeaders(),
       body: JSON.stringify({ 
         courseId, 
         customCourseCode, 
         customCourseName, 
         roomName, 
-        creatorSessionId, 
         customSettings 
       })
     });
@@ -98,15 +150,19 @@ export const api = {
   },
 
   async getRoom(code) {
-    const sessionId = getAnonymousSessionId();
-    const res = await fetch(`${API_BASE}/rooms/${code}?sessionId=${sessionId}`);
+    const res = await fetch(`${API_BASE}/rooms/${code}`, {
+      credentials: 'include',
+      headers: getHeaders()
+    });
     return handleResponse(res);
   },
 
   // Streaks
   async getStreak() {
-    const sessionId = getAnonymousSessionId();
-    const res = await fetch(`${API_BASE}/streaks/${sessionId}`);
+    const res = await fetch(`${API_BASE}/streaks`, {
+      credentials: 'include',
+      headers: getHeaders()
+    });
     return handleResponse(res);
   }
 };
