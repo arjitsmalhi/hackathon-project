@@ -37,7 +37,7 @@ export function getSessionToken() {
   return localStorage.getItem('studybound_session_token') || '';
 }
 
-const API_BASE = '/api';
+const API_BASE = 'https://hackathon-project-fo11.onrender.com';
 
 async function handleResponse(res) {
   if (!res.ok) {
