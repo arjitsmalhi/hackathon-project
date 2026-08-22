@@ -137,9 +137,9 @@
         "Algorithms",
         "Exam Prep"
       ],
-      "confirmCount": 0,
+      "confirmCount": 1,
       "flagCount": 0,
-      "confidenceScore": 0,
+      "confidenceScore": 1,
       "createdAt": "2026-08-22T04:16:04.180Z"
     },
     {
@@ -180,9 +180,9 @@
         "Complexity",
         "Exam Prep"
       ],
-      "confirmCount": 2,
+      "confirmCount": 3,
       "flagCount": 0,
-      "confidenceScore": 2,
+      "confidenceScore": 3,
       "createdAt": "2026-08-17T04:14:02.239Z"
     },
     {
@@ -309,6 +309,20 @@
       "voterSessionId": "anon_681af84180501b2a6b2bcb705ec28a95",
       "type": "flag",
       "createdAt": "2026-08-22T04:51:19.351Z"
+    },
+    {
+      "id": "vote-jAmx9-tF",
+      "noteId": "note-HDxD6hvlTN",
+      "voterSessionId": "anon_96e5cd26b7adc6bc83e9e11f964dd3ba",
+      "type": "confirm",
+      "createdAt": "2026-08-22T05:12:34.263Z"
+    },
+    {
+      "id": "vote-bKFiWP0Y",
+      "noteId": "note-1",
+      "voterSessionId": "anon_96e5cd26b7adc6bc83e9e11f964dd3ba",
+      "type": "confirm",
+      "createdAt": "2026-08-22T05:12:38.249Z"
     }
   ],
   "rooms": {
@@ -320,7 +334,7 @@
       "courseName": "Introduction to Computer Science & Algorithms",
       "creatorSessionId": "anon_student_A_1787372164163",
       "createdAt": "2026-08-22T04:16:04.186Z",
-      "lastActive": 1787375455204,
+      "lastActive": 1787377148057,
       "participants": [
         {
           "socketId": "OsWsHrfNNonAXk-zAAAC",
@@ -344,7 +358,7 @@
         "timeRemaining": 0,
         "duration": 60,
         "isRunning": true,
-        "cycleCount": 13,
+        "cycleCount": 20,
         "lastTickTime": null,
         "settings": {
           "focusMinutes": 1,
@@ -415,7 +429,7 @@
       "roomName": "CSE 101 Focus Session",
       "creatorSessionId": "anon_yna07l2xmt3va3f5",
       "createdAt": "2026-08-22T04:25:04.441Z",
-      "lastActive": 1787375454192,
+      "lastActive": 1787377147047,
       "participants": [
         {
           "socketId": "1krQnF0g2zS2UC12AAAC",
@@ -428,10 +442,10 @@
       ],
       "pomodoro": {
         "phase": "focus",
-        "timeRemaining": 766,
+        "timeRemaining": 886,
         "duration": 1500,
         "isRunning": true,
-        "cycleCount": 1,
+        "cycleCount": 2,
         "lastTickTime": null,
         "settings": {
           "focusMinutes": 25,
@@ -614,18 +628,18 @@
       "lastActive": "2026-08-22T04:15:19.819Z"
     },
     "anon_student_A_1787372164163": {
-      "streakCount": 13,
-      "completedCycles": 13,
-      "totalMinutes": 13,
+      "streakCount": 20,
+      "completedCycles": 20,
+      "totalMinutes": 20,
       "notesContributed": 1,
-      "lastActive": "2026-08-22T05:10:55.204Z"
+      "lastActive": "2026-08-22T05:39:08.057Z"
     },
     "anon_student_B_1787372164201": {
-      "streakCount": 13,
-      "completedCycles": 13,
-      "totalMinutes": 13,
+      "streakCount": 20,
+      "completedCycles": 20,
+      "totalMinutes": 20,
       "notesContributed": 0,
-      "lastActive": "2026-08-22T05:10:55.206Z"
+      "lastActive": "2026-08-22T05:39:08.064Z"
     },
     "test_session_1787372455795": {
       "streakCount": 0,
@@ -649,11 +663,11 @@
       "lastActive": "2026-08-22T04:27:51.003Z"
     },
     "anon_yna07l2xmt3va3f5": {
-      "streakCount": 2,
-      "completedCycles": 2,
-      "totalMinutes": 50,
+      "streakCount": 3,
+      "completedCycles": 3,
+      "totalMinutes": 75,
       "notesContributed": 0,
-      "lastActive": "2026-08-22T04:53:32.305Z"
+      "lastActive": "2026-08-22T05:23:46.209Z"
     },
     "anon_58a241138c28021ae4b1f3a8df784363": {
       "streakCount": 0,
