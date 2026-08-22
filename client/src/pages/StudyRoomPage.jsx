@@ -53,7 +53,7 @@ export function StudyRoomPage({
 
   // Socket Connection & Realtime Sync
   useEffect(() => {
-    const socket = io('https://hackathon-project-fo11.onrender.com', {
+    const socket = const socket = io(import.meta.env.VITE_API_URL || '/', {
       transports: ['websocket', 'polling']
     });
     socketRef.current = socket;
