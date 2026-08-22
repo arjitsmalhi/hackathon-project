@@ -167,9 +167,9 @@
         "Trees",
         "C++"
       ],
-      "confirmCount": 9,
+      "confirmCount": 1,
       "flagCount": 0,
-      "confidenceScore": 9,
+      "confidenceScore": 1,
       "createdAt": "2026-08-19T04:14:02.239Z"
     },
     {
@@ -260,6 +260,13 @@
       "voterSessionId": "test_session_1787372870985",
       "type": "flag",
       "createdAt": "2026-08-22T04:27:51.022Z"
+    },
+    {
+      "id": "vote-UrS7uA0l",
+      "noteId": "note-2",
+      "voterSessionId": "anon_yna07l2xmt3va3f5",
+      "type": "confirm",
+      "createdAt": "2026-08-22T04:36:04.501Z"
     }
   ],
   "rooms": {
@@ -271,7 +278,7 @@
       "courseName": "Introduction to Computer Science & Algorithms",
       "creatorSessionId": "anon_student_A_1787372164163",
       "createdAt": "2026-08-22T04:16:04.186Z",
-      "lastActive": 1787372981454,
+      "lastActive": 1787373364335,
       "participants": [
         {
           "socketId": "OsWsHrfNNonAXk-zAAAC",
@@ -291,11 +298,11 @@
         }
       ],
       "pomodoro": {
-        "phase": "focus",
-        "timeRemaining": 0,
-        "duration": 60,
+        "phase": "long_break",
+        "timeRemaining": 760,
+        "duration": 900,
         "isRunning": true,
-        "cycleCount": 6,
+        "cycleCount": 8,
         "lastTickTime": null,
         "settings": {
           "focusMinutes": 1,
@@ -366,7 +373,7 @@
       "roomName": "CSE 101 Focus Session",
       "creatorSessionId": "anon_yna07l2xmt3va3f5",
       "createdAt": "2026-08-22T04:25:04.441Z",
-      "lastActive": 1787372980454,
+      "lastActive": 1787373364335,
       "participants": [
         {
           "socketId": "1krQnF0g2zS2UC12AAAC",
@@ -379,7 +386,7 @@
       ],
       "pomodoro": {
         "phase": "focus",
-        "timeRemaining": 1366,
+        "timeRemaining": 985,
         "duration": 1500,
         "isRunning": true,
         "cycleCount": 0,
@@ -470,18 +477,18 @@
       "lastActive": "2026-08-22T04:15:19.819Z"
     },
     "anon_student_A_1787372164163": {
-      "streakCount": 6,
-      "completedCycles": 6,
-      "totalMinutes": 6,
+      "streakCount": 8,
+      "completedCycles": 8,
+      "totalMinutes": 8,
       "notesContributed": 1,
-      "lastActive": "2026-08-22T04:29:41.454Z"
+      "lastActive": "2026-08-22T04:33:43.257Z"
     },
     "anon_student_B_1787372164201": {
-      "streakCount": 6,
-      "completedCycles": 6,
-      "totalMinutes": 6,
+      "streakCount": 8,
+      "completedCycles": 8,
+      "totalMinutes": 8,
       "notesContributed": 0,
-      "lastActive": "2026-08-22T04:29:41.458Z"
+      "lastActive": "2026-08-22T04:33:43.263Z"
     },
     "test_session_1787372455795": {
       "streakCount": 0,

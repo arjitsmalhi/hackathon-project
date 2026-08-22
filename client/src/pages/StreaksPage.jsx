@@ -72,20 +72,20 @@ export function StreaksPage({ onNavigate }) {
 
         {/* Total Focus Time */}
         <div className="card" style={{ 
-          background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.12), var(--bg-surface))', 
-          borderColor: 'rgba(99, 102, 241, 0.3)',
+          background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.1), var(--bg-surface))', 
+          borderColor: 'rgba(59, 130, 246, 0.25)',
           display: 'flex',
           flexDirection: 'column',
           gap: '10px'
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div style={{ width: 38, height: 38, borderRadius: 'var(--radius-sm)', background: 'rgba(99, 102, 241, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#818cf8' }}>
+            <div style={{ width: 38, height: 38, borderRadius: 'var(--radius-sm)', background: 'rgba(59, 130, 246, 0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#60a5fa' }}>
               <Clock size={20} />
             </div>
             <span className="badge badge-code">Total Time</span>
           </div>
 
-          <div style={{ fontSize: '2.8rem', fontWeight: 800, color: '#818cf8', lineHeight: 1 }}>
+          <div style={{ fontSize: '2.8rem', fontWeight: 800, color: '#60a5fa', lineHeight: 1 }}>
             {Math.floor(totalMinutes / 60)}h {totalMinutes % 60}m
           </div>
           <div style={{ color: 'var(--text-secondary)', fontSize: '0.88rem' }}>

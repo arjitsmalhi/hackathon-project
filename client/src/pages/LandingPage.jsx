@@ -11,7 +11,7 @@ export function LandingPage({ onNavigate, stats }) {
         </div>
 
         <h1 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.4rem)', fontWeight: 800, letterSpacing: '-1.5px', lineHeight: 1.15 }}>
-          Where focus sessions build a <span style={{ background: 'linear-gradient(135deg, #818cf8, #34d399)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>verified notes library</span>
+          Where focus sessions build a <span style={{ background: 'linear-gradient(135deg, #60a5fa, #34d399)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>verified notes library</span>
         </h1>
 
         <p style={{ fontSize: '1.15rem', color: 'var(--text-secondary)', maxWidth: '620px', lineHeight: 1.6 }}>
@@ -50,7 +50,7 @@ export function LandingPage({ onNavigate, stats }) {
           style={{ display: 'flex', flexDirection: 'column', gap: '16px', position: 'relative', overflow: 'hidden' }}
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ width: 44, height: 44, borderRadius: 'var(--radius-sm)', background: 'rgba(99, 102, 241, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-primary)' }}>
+            <div style={{ width: 44, height: 44, borderRadius: 'var(--radius-sm)', background: 'rgba(59, 130, 246, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-primary)' }}>
               <BookOpen size={22} />
             </div>
             <span className="badge badge-confirmed">Identity-Free</span>
@@ -69,7 +69,7 @@ export function LandingPage({ onNavigate, stats }) {
               <span>Confidence Score = Confirms &minus; Flags</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <ShieldCheck size={15} color="#6366f1" />
+              <ShieldCheck size={15} color="#3b82f6" />
               <span>Zero usernames or avatars in notes UI</span>
             </div>
           </div>
@@ -101,7 +101,7 @@ export function LandingPage({ onNavigate, stats }) {
               <span>Server-authoritative synchronized countdown</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Flame size={15} color="#f59e0b" />
+              <Flame size={15} color="#eab308" />
               <span>Automatic post-session note contribution prompt</span>
             </div>
           </div>
@@ -110,8 +110,8 @@ export function LandingPage({ onNavigate, stats }) {
 
       {/* The Connecting Moment (Signature Feature Callout) */}
       <section style={{ 
-        background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(16, 185, 129, 0.08))', 
-        border: '1px solid rgba(99, 102, 241, 0.25)', 
+        background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(16, 185, 129, 0.06))', 
+        border: '1px solid rgba(59, 130, 246, 0.2)', 
         borderRadius: 'var(--radius-lg)', 
         padding: '30px', 
         display: 'flex', 
